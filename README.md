@@ -2,7 +2,15 @@
 
 A pre-op nurse assignment pilot. Built with React, TypeScript, Vinext and Cloudflare D1 through Sites. No paid model, payment integration or API subscription is configured.
 
-## Run locally
+## Local edition for the PCC
+
+For a Windows computer, follow [LOCAL-SETUP.md](LOCAL-SETUP.md). Install Node.js 24 LTS, extract this repository, and run **Setup PCC Scheduling.cmd** once. Then use the Desktop shortcut. Normal use is offline, with no hosting or AI bill. Setup and updates need internet.
+
+This edition uses a separate local SQLite database, automatic saves, interrupted-draft recovery, automatic version/daily backups, and explicit restore review. Data is stored in `%LOCALAPPDATA%\PCC Scheduling`, outside the code folder. Setup, start, stop and update launchers are included. Updates preserve data; a ZIP download can be replaced with a new extracted folder. This is a local browser app with a launcher, not a signed native installer.
+
+The current Sites deployment is separate. Installing or updating this GitHub version does not change the hosted site, transfer its data automatically, or synchronize the two copies. Export/import JSON to hand off an existing workspace. Local imports return approvals to drafts for review. The local edition does not require Sites authentication or trust its authentication headers.
+
+## Sites development preview
 - Install the starter dependencies with the Sites installation helper or `npm run install:ci`.
 - Generate migrations with `npm run db:generate`.
 - Build using the Sites build helper. Apply the generated migration to the local D1 database with `node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0000_even_harry_osborn.sql`.
@@ -43,7 +51,7 @@ The server validates payloads and approval invariants. The deployment access pol
 ## Pending client validation
 Supply anonymized rosters and completed sheets. Verify actual designations, cubicle pairs (especially JP3 C/D), OR/service mappings, demanding-duty weights and break arrangements. Exercise the revised workflow with the coordinator before operational use.
 
-Limits: 100 staff, 20 four-cubicle teams, 200 breaks and 100 transfers per day, 730 saved team days, 3.5 MB workspace including the legacy archive. Download backups before replacing data. No medical/patient records are supported.
+Limits: 100 staff, 20 four-cubicle teams, 200 breaks and 100 transfers per day, 730 saved team days. The local edition accepts up to 64 MiB per workspace request and stores schedules separately. This source version limits the hosted single-record save request to 1.9 MB in UTF-8 bytes, below D1's 2 MB row limit; publishing this source change is separate from the local release. Download backups before replacing data. No medical/patient records are supported.
 
 Run `node --test tests/planner.test.mjs tests/teams.test.mjs` for legacy and team regression tests, and `npx tsc --noEmit` for types.
 

@@ -15,7 +15,7 @@ export async function PUT(request:Request){
  const user=await getChatGPTUser();if(!user)return json({error:"Sign in before saving."},401);
  const origin=request.headers.get("origin");if(origin&&origin!==new URL(request.url).origin)return json({error:"Invalid origin."},403);
  try{
- const raw=await request.text();if(raw.length>3500000)return json({error:"Workspace is too large. Export older schedules first."},413);
+ const raw=await request.text();if(new TextEncoder().encode(raw).byteLength>1900000)return json({error:"This hosted workspace is approaching its storage limit. Export older schedules or move to the local edition before saving more history."},413);
  const body=JSON.parse(raw);const isTeam=body.data?.schemaVersion===2;
  const parsed=(isTeam?workspaceSchema:dataSchema).safeParse(body.data);if(!parsed.success||!Number.isSafeInteger(body.version)||body.version<0)return json({error:"Invalid workspace data. "+(parsed.success?"":parsed.error.issues[0]?.message)},400);
  const stored=await getDb().select().from(workspaces).where(eq(workspaces.owner,user.userId)).limit(1);
