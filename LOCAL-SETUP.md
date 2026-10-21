@@ -1,4 +1,4 @@
-# PCC Scheduling on one Windows computer
+# PCC Scheduler on one Windows computer
 
 The local edition runs the planner in a browser, with a small server and SQLite database on the same computer. Normal use needs no internet, ChatGPT account, Cloudflare account, AI subscription, or hosting subscription. Setup and updates need internet to download software. Use a current Edge or Chrome browser.
 

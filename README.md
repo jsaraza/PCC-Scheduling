@@ -1,6 +1,10 @@
 # PCC Scheduler
 
-A pre-op nurse assignment pilot. Built with React, TypeScript, Vinext and Cloudflare D1 through Sites. No paid model, payment integration or API subscription is configured.
+Patient Care Coordinator Scheduler (PCC Scheduler) supports nurse assignments and floor coverage. Built with React, TypeScript, Vinext and Cloudflare D1 through Sites. No paid model, payment integration or API subscription is configured.
+
+See [CLIENT-HANDOFF.md](CLIENT-HANDOFF.md) for delivery, acceptance checks and remaining client confirmations.
+
+Online app: https://pcc-scheduler.sureplume10.chatgpt.site (private access).
 
 ## Local edition for the PCC
 
@@ -51,7 +55,7 @@ The server validates payloads and approval invariants. The deployment access pol
 ## Pending client validation
 Supply anonymized rosters and completed sheets. Verify actual designations, cubicle pairs (especially JP3 C/D), OR/service mappings, demanding-duty weights and break arrangements. Exercise the revised workflow with the coordinator before operational use.
 
-Limits: 100 staff, 20 four-cubicle teams, 200 breaks and 100 transfers per day, 730 saved team days. The local edition accepts up to 64 MiB per workspace request and stores schedules separately. This source version limits the hosted single-record save request to 1.9 MB in UTF-8 bytes, below D1's 2 MB row limit; publishing this source change is separate from the local release. Download backups before replacing data. No medical/patient records are supported.
+Limits: 100 staff, 20 four-cubicle teams, 200 breaks and 100 transfers per day, 730 saved team days. The local edition accepts up to 64 MiB per workspace request and stores schedules separately. This source version limits the hosted single-record save request to 1.9 MB in UTF-8 bytes, below D1's 2 MB row limit; The local and hosted editions have separate databases. Download backups before replacing data. No medical/patient records are supported.
 
 Run `node --test tests/planner.test.mjs tests/teams.test.mjs` for legacy and team regression tests, and `npx tsc --noEmit` for types.
 
