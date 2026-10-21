@@ -22,3 +22,36 @@
 @media(max-width:760px){.tool-form{padding:16px}.tool-form .form-grid{grid-template-columns:1fr}.tool-note{margin:0 14px 14px;padding:12px;font-size:10px}.rule-row{padding:14px;flex-wrap:wrap}.rule-row>div:first-child{flex-basis:100%}.audit-row{padding:14px;flex-wrap:wrap}.audit-row>div{min-width:200px}.report-controls{padding:0 14px;gap:10px}.report-controls label{flex:1}.report-controls .checkbox-label{flex-basis:100%}.report-controls .secondary{font-size:10px}.sidebar.mobile-open{top:112px}.topbar{padding:12px 16px;min-height:100px}.topbar .breadcrumb{flex-basis:100%}.topbar .breadcrumb strong{max-width:none}.top-actions{width:100%;justify-content:flex-end}.tool-form .button-row{flex-wrap:wrap}}
 
 .assignment-explanation{padding:10px 17px;border-top:1px solid var(--border);font-size:10px;color:#718368}.assignment-explanation summary{cursor:pointer}.assignment-explanation p{white-space:pre-wrap;margin-top:10px;line-height:1.8}
+
+/* The guide is portalled outside the inert planner, so it never edits a live plan. */
+[data-tour]{scroll-margin-top:24px}
+.app-shell[inert],.app-shell[inert] *{overflow-anchor:none}
+.top-actions .tour-launch{background:#e9f1e1;border:1px solid #cfdec1;color:#275d4c;font-weight:700;white-space:nowrap;min-height:36px}
+.top-actions .tour-launch:hover{background:#dceacb;border-color:#a5be92}
+.workflow-tour{position:fixed;inset:0;z-index:1000;isolation:isolate;touch-action:pan-y}
+.tour-shade{position:absolute;inset:0;pointer-events:none}
+.tour-spotlight{position:fixed;border:2px solid #c4e39d;border-radius:12px;box-shadow:0 0 0 4px #c4e39d25;pointer-events:none}
+.tour-card{position:fixed;background:#fffefb;border:1px solid #dde6d6;border-radius:20px;box-shadow:0 18px 70px #071c2855;padding:22px;max-height:calc(100dvh - 24px);overflow:auto;color:#273d37;font-family:'DM Sans',Arial,sans-serif;opacity:0;transition:opacity .18s ease;overscroll-behavior:contain}
+.tour-card.is-ready{opacity:1}
+.tour-topline{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tour-topline>span{display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:.12em;font-weight:700;color:#668151}
+.tour-close{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;margin:-5px -7px -5px 0;background:#f0f3eb;color:#53654a;flex:none}
+.tour-close:hover{background:#e5ebdf}
+.tour-progress{height:4px;border-radius:9px;overflow:hidden;background:#e6ebdf;margin:19px 0 14px}
+.tour-progress>span{display:block;height:100%;background:#487b5b;border-radius:inherit;transition:width .25s ease}
+.tour-meta{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:#77856e;margin-bottom:14px}
+.tour-meta>span:first-child{color:#42634a;font-weight:600}
+.tour-copy{animation:tour-copy-in .2s ease}
+.tour-copy h2{font:700 21px/1.25 Manrope,Arial,sans-serif;letter-spacing:-.5px;margin:0 0 12px;color:#234636;outline:none}
+.tour-copy p{font-size:14px;line-height:1.65;color:#55634f;margin:0}
+.tour-actions{display:flex;justify-content:space-between;gap:12px;margin-top:23px}
+.tour-actions button{font-size:13px;font-weight:600;min-height:42px;border-radius:10px;padding:10px 16px}
+.tour-back{border:1px solid #dce4d5;background:transparent;color:#53654a}
+.tour-next{background:#285c49;color:white;min-width:104px;box-shadow:0 3px 9px #285c4920}
+.tour-next:hover{background:#1d4838}
+.tour-back:hover:not(:disabled){background:#edf2e7}
+.tour-card button:focus-visible{outline:3px solid #8eb47b;outline-offset:3px}
+.tour-footnote{font-size:10px;color:#7b8873;text-align:center;margin-top:16px;line-height:1.5}
+@keyframes tour-copy-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:760px){.top-actions .tour-launch{margin-left:auto;font-size:11px;padding:8px 10px}.tour-card{padding:18px;border-radius:16px}.tour-copy h2{font-size:20px}.tour-copy p{font-size:14px}.tour-topline>span{font-size:9px}.tour-actions{margin-top:18px}}
+@media(prefers-reduced-motion:reduce){.tour-copy{animation:none}.tour-card,.tour-progress>span{transition:none}}
