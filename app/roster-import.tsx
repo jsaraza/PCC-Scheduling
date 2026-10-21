@@ -1,4 +1,5 @@
 "use client";
+import {scanTourStaff} from "../lib/scan-tour-example";
 import ScanImport from "./scan-import";
 import {useRef,useState} from "react";
 import type {Staff} from "../lib/teams";
@@ -7,8 +8,8 @@ export function downloadExcel(name:string,data:unknown){
  const url=URL.createObjectURL(new Blob([data as BlobPart],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}));
  const link=document.createElement("a");link.href=url;link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
-export default function RosterImport({existing,onReady,localMode=false}:{existing:Staff[];onReady:(ready:boolean)=>void;localMode?:boolean}){
- const [text,setText]=useState(""),[rows,setRows]=useState<Staff[]>([]),[error,setError]=useState(""),[busy,setBusy]=useState(false);
+export default function RosterImport({existing,onReady,localMode=false,tutorial=false}:{existing:Staff[];onReady:(ready:boolean)=>void;localMode?:boolean;tutorial?:boolean}){
+ const [text,setText]=useState(""),[rows,setRows]=useState<Staff[]>(tutorial?scanTourStaff:[]),[error,setError]=useState(""),[busy,setBusy]=useState(false);
  const [sheets,setSheets]=useState<{name:string;sheet:Worksheet}[]>([]),[selected,setSelected]=useState("");const input=useRef<HTMLInputElement>(null);
  function reset(){setRows([]);setError("");onReady(false);}
  async function preview(value:string){reset();try{const {validateRosterImport}=await import("../lib/excel");setRows(validateRosterImport(value,existing));onReady(true);}catch(e){setError((e as Error).message);}}
@@ -28,9 +29,9 @@ export default function RosterImport({existing,onReady,localMode=false}:{existin
   <details><summary>Required columns and paste option</summary><p className="form-help">Required: name, role, floor, cohort, start, end. Use RN/LPN, JP2/JP3 and early/late/morning-charge. Optional: leadership (poc/charge), weekdaysOnly (true/false), shortEnd. Blank optional cells clear those settings; omit a column to keep existing settings.</p>
    <label>CSV content<textarea value={text} rows={6} onChange={e=>{setText(e.target.value);reset();}}/></label><button type="button" className="secondary" disabled={busy||!text.trim()} onClick={()=>void preview(text)}>Preview roster</button>
   </details>
-  {localMode&&<details className="photo-import"><summary>Import from a phone photo / scan</summary><ScanImport existing={existing} onReset={reset} onUse={value=>{setText(value);setSheets([]);void preview(value);}}/></details>}
+  {localMode&&<details className="photo-import" open={tutorial||undefined}><summary data-tour="photo-entry">Import from a phone photo / scan</summary><ScanImport tutorial={tutorial} existing={existing} onReset={reset} onUse={value=>{setText(value);setSheets([]);void preview(value);}}/></details>}
   <input type="hidden" name="csv" value={rows.length?text:""}/>
   {error&&<p className="alert form-error" role="alert">{error}</p>}
-  {rows.length>0&&<><p role="status"><strong>{rows.length} nurses ready to review.</strong> Matching names keep their history. Nurses omitted from this file will be removed from this day.</p><div className="table-scroll import-preview"><table><thead><tr><th>Name</th><th>Role / floor</th><th>Shift</th><th>Cohort / leadership</th></tr></thead><tbody>{rows.map(n=><tr key={n.id}><td>{n.name}</td><td>{n.role} · {n.floor}</td><td>{n.start}–{n.end}{n.shortEnd&&<small>Short end: {n.shortEnd}</small>}</td><td>{n.cohort}{n.leadership&&<small>{n.leadership}</small>}{n.weekdaysOnly&&<small>Mon–Fri</small>}</td></tr>)}</tbody></table></div><label className="checkbox-label"><input name="replace" type="checkbox" required/>I checked these designations and hours. Replace this day’s roster and remove assignments/events for omitted nurses.</label></>}
+  {rows.length>0&&<div data-tour="photo-confirm"><p role="status"><strong>{rows.length} {rows.length===1?"nurse":"nurses"} ready to review.</strong> Matching names keep their history. Nurses omitted from this file will be removed from this day.</p><div className="table-scroll import-preview"><table><thead><tr><th>Name</th><th>Role / floor</th><th>Shift</th><th>Cohort / leadership</th></tr></thead><tbody>{rows.map(n=><tr key={n.id}><td>{n.name}</td><td>{n.role} · {n.floor}</td><td>{n.start}–{n.end}{n.shortEnd&&<small>Short end: {n.shortEnd}</small>}</td><td>{n.cohort}{n.leadership&&<small>{n.leadership}</small>}{n.weekdaysOnly&&<small>Mon–Fri</small>}</td></tr>)}</tbody></table></div><label className="checkbox-label"><input name="replace" type="checkbox" required/>I checked these designations and hours. Replace this day’s roster and remove assignments/events for omitted nurses.</label>{tutorial&&<button type="button" className="primary">Import roster</button>}</div>}
  </div>;
 }

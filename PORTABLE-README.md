@@ -19,6 +19,8 @@ To move an existing website workspace, download its JSON backup and use **Assign
 
 In **Nurse roster → Import Excel / CSV → Import from a phone photo / scan**, select a JPG, PNG or WebP transferred from the phone to the laptop. Reading is offline. Review the original photo alongside the extracted text, put one nurse on each line, build review rows, correct missing/misread details, then preview and confirm the import. Saved nurse defaults may be suggested for matching names; check them against today’s roster. Handwriting and multi-column layouts may need substantial correction. No direct phone upload connection is included. Photos are not stored in the schedule database.
 
+The top-right **Take a tour** walkthrough includes seven photo-import steps after the spreadsheet introduction. It highlights the controls using a fictional nurse, without reading a photo or changing your roster.
+
 ## Updates
 
 Save and download a backup. For this update, restart Windows (or use the old Stop command once) to close the previous version before opening the new one. Download a newer **Portable** release ZIP, extract it into a new folder, and open it. The same Windows account reuses its saved data. Recreate the optional shortcut from the new folder. Keep the previous version until you verify the new one works. Never delete the LocalAppData data folder when updating.
