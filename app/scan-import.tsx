@@ -5,7 +5,7 @@ import type {Staff} from "../lib/teams";
 import {scanRows,scanCSV,scanColumns} from "../lib/scan-roster";
 import {scanTourText} from "../lib/scan-tour-example";
 import type {ScanRow} from "../lib/scan-roster";
-export default function ScanImport({existing,onUse,onReset,tutorial=false}:{existing:Staff[];onUse:(csv:string)=>void;onReset:()=>void;tutorial?:boolean}){
+export default function ScanImport({existing,onUse,onReset,tutorial=false,localMode=false}:{existing:Staff[];onUse:(csv:string)=>void;onReset:()=>void;tutorial?:boolean;localMode?:boolean}){
  const [text,setText]=useState(tutorial?scanTourText:""),[rows,setRows]=useState<ScanRow[]>(()=>tutorial?scanRows(scanTourText,[]):[]),[photo,setPhoto]=useState(""),[busy,setBusy]=useState(false),[progress,setProgress]=useState(""),[error,setError]=useState("");
  const fileInput=useRef<HTMLInputElement>(null),worker=useRef<Worker|null>(null),job=useRef(0);
  useEffect(()=>()=>{job.current++;void worker.current?.terminate();},[]);
@@ -31,7 +31,8 @@ export default function ScanImport({existing,onUse,onReset,tutorial=false}:{exis
   finally{clearTimeout(timer);if(reader)await (reader as Worker).terminate().catch(()=>{});if(worker.current===reader)worker.current=null;if(id===job.current||(timedOut&&id+1===job.current)){setBusy(false);setProgress("");}if(fileInput.current)fileInput.current.value="";}
  }
  return <section className="scan-import">
-  <h3>Read a roster photo</h3><p>Transfer the photo from the phone to this laptop, then choose it here. Text recognition runs on this computer—no AI account or internet needed. Photos are not saved with the roster.</p>
+  <h3>Read a roster photo</h3><p>{localMode?"Transfer the photo from the phone to this laptop, then choose it here. Text recognition runs on this computer—no AI account or internet needed.":"On your phone, open this website and choose a roster photo from your camera or photo library. On a laptop, choose a photo already transferred to it. Text recognition runs in your browser; internet is needed to load the reader, but the photo is not uploaded for recognition."} Photos are not saved with the roster.</p>
+  {!localMode&&<p className="form-help">After importing, choose Save workspace. To see it on another device, sign in to this website with the same account and reload after saving any edits there. The portable laptop edition keeps a separate workspace and does not sync with this website.</p>}
   <p className="form-help">Use a straight, well-lit photo with one nurse per line. Printed text works best. Handwriting, columns and abbreviations may be misread or missed; compare every name and time with the original.</p>
   <div className="button-row"><button data-tour="photo-choose" type="button" className="secondary" disabled={busy} onClick={()=>fileInput.current?.click()}>Choose roster photo</button>{busy&&<button type="button" className="text-button" onClick={cancel}>Cancel reading</button>}</div>
   <input ref={fileInput} type="file" hidden accept="image/jpeg,image/png,image/webp" onChange={e=>{if(e.target.files?.[0])void readPhoto(e.target.files[0]);}}/>

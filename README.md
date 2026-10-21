@@ -82,4 +82,6 @@ Export Excel downloads four sheets: Schedule, Roster, Events, and Review & layou
 
 Use the **Portable Windows x64 ZIP** under [GitHub Releases](https://github.com/jsaraza/PCC-Scheduling/releases) to run without installing Node.js or using setup commands. Extract it, then double-click **Open PCC Scheduler.cmd**. The source archive from Code → Download ZIP still needs developer setup. See PORTABLE-README.md for local data, backups and updates.
 
-The portable local edition also includes offline roster-photo recognition with manual review. Normal use is close the browser and reopen from the shortcut; Stop is only an optional maintenance tool. The 05:45 early start preset finishes at 13:45.
+Both editions include roster-photo recognition with manual review and seven photo-import steps in Take a tour. On the website, choose a photo on your phone or laptop; recognition runs in the browser using same-origin reader assets, without uploading the photo. Save workspace to share the imported roster with another signed-in browser using the same account. The portable edition runs recognition offline and keeps its workspace separate. Photos are not saved. JPG, PNG and WebP under 15 MB are supported; handwriting and every extracted nurse detail require review.
+
+For the portable edition, normal use is close the browser and reopen from the shortcut; Stop is only an optional maintenance tool. The 05:45 early start preset finishes at 13:45.
