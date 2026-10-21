@@ -81,3 +81,5 @@ Export Excel downloads four sheets: Schedule, Roster, Events, and Review & layou
 ## Portable client download
 
 Use the **Portable Windows x64 ZIP** under [GitHub Releases](https://github.com/jsaraza/PCC-Scheduling/releases) to run without installing Node.js or using setup commands. Extract it, then double-click **Open PCC Scheduler.cmd**. The source archive from Code → Download ZIP still needs developer setup. See PORTABLE-README.md for local data, backups and updates.
+
+The portable local edition also includes offline roster-photo recognition with manual review. Normal use is close the browser and reopen from the shortcut; Stop is only an optional maintenance tool. The 05:45 early start preset finishes at 13:45.

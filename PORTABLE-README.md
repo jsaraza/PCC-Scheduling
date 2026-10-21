@@ -7,7 +7,7 @@ No Node.js installation, setup command, account, or internet connection is requi
 3. Double-click **Open PCC Scheduler.cmd**. Your browser opens the local app.
 4. Optional: double-click **Create Desktop Shortcut.cmd** for a shortcut with the new app icon.
 
-Wait for **Saved locally** before closing. Closing the browser leaves the local app running; **Stop PCC Scheduler.cmd** stops it. Open it again with the same launcher. No administrator permissions are needed by the app, though workplace device policies may require IT to authorize it.
+Wait for **Saved locally** before closing. Close the browser tab or window normally. Double-click the desktop shortcut or **Open PCC Scheduler.cmd** whenever you want to return; it opens the browser again even when the local service is already running. **Stop PCC Scheduler.cmd** is optional maintenance, not part of everyday use. No administrator permissions are needed by the app, though workplace device policies may require IT to authorize it.
 
 ## Your schedules
 
@@ -15,9 +15,13 @@ Schedules and automatic backups stay in `%LOCALAPPDATA%\PCC Scheduling` for the 
 
 To move an existing website workspace, download its JSON backup and use **Assignment history → Restore backup** here. Review the imported drafts and click **Save workspace**.
 
+## Photo / scan import
+
+In **Nurse roster → Import Excel / CSV → Import from a phone photo / scan**, select a JPG, PNG or WebP transferred from the phone to the laptop. Reading is offline. Review the original photo alongside the extracted text, put one nurse on each line, build review rows, correct missing/misread details, then preview and confirm the import. Saved nurse defaults may be suggested for matching names; check them against today’s roster. Handwriting and multi-column layouts may need substantial correction. No direct phone upload connection is included. Photos are not stored in the schedule database.
+
 ## Updates
 
-Save, download a backup and stop the old app. Download a newer **Portable** release ZIP, extract it into a new folder, and open it. The same Windows account reuses its saved data. Recreate the optional shortcut from the new folder. Keep the previous version until you verify the new one works. Never delete the LocalAppData data folder when updating.
+Save and download a backup. For this update, restart Windows (or use the old Stop command once) to close the previous version before opening the new one. Download a newer **Portable** release ZIP, extract it into a new folder, and open it. The same Windows account reuses its saved data. Recreate the optional shortcut from the new folder. Keep the previous version until you verify the new one works. Never delete the LocalAppData data folder when updating.
 
 The green **Code → Download ZIP** button on GitHub downloads source code, which still needs developer setup. Use the **Portable ZIP under Releases** for this edition. The included runtime is updated by downloading a new portable release.
 

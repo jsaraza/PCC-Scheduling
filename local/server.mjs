@@ -7,7 +7,7 @@ import {LocalStore,ConflictError} from "./storage.mjs";
 
 export const MAX_BODY=64*1024*1024;
 const root=fileURLToPath(new URL("../",import.meta.url));
-const types={".html":"text/html; charset=utf-8",".js":"text/javascript; charset=utf-8",".css":"text/css; charset=utf-8",".svg":"image/svg+xml",".woff2":"font/woff2",".png":"image/png",".ico":"image/x-icon"};
+const types={".html":"text/html; charset=utf-8",".js":"text/javascript; charset=utf-8",".wasm":"application/wasm",".css":"text/css; charset=utf-8",".svg":"image/svg+xml",".woff2":"font/woff2",".png":"image/png",".ico":"image/x-icon"};
 const equal=(a,b)=>typeof a==="string"&&/^[a-f0-9]{64}$/.test(a)&&timingSafeEqual(Buffer.from(a),Buffer.from(b));
 export async function startLocal({directory,port=43127,assets=path.join(root,"dist-local")}){
  const store=new LocalStore(directory),secret=randomBytes(32).toString("hex"),launchKey=randomBytes(32).toString("hex");
@@ -18,7 +18,7 @@ export async function startLocal({directory,port=43127,assets=path.join(root,"di
   res.setHeader("X-Content-Type-Options","nosniff");
   res.setHeader("X-Frame-Options","DENY");
   res.setHeader("Referrer-Policy","no-referrer");
-  res.setHeader("Content-Security-Policy","default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'");
+  res.setHeader("Content-Security-Policy","default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'");
   // Exact authority checks stop DNS rebinding. Cookies and Origin checks stop
   // another website from accessing the local API. Never bind to the LAN.
   if(req.headers.host!==new URL(origin).host||!["127.0.0.1","::ffff:127.0.0.1"].includes(req.socket.remoteAddress)||req.headers["sec-fetch-site"]==="cross-site"||(req.headers.origin&&req.headers.origin!==origin)){

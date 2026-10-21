@@ -58,6 +58,7 @@ next-env.d.ts
 # TypeScript incremental build cache
 *.tsbuildinfo
 /dist-local/
+/public/ocr/
 /.local-build/
 /.local-previous/
 *.sqlite

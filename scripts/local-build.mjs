@@ -2,6 +2,8 @@ import {spawnSync} from "node:child_process";
 import {renameSync,rmSync,existsSync} from "node:fs";
 import {fileURLToPath} from "node:url";
 import path from "node:path";
+import {prepareOCR} from "./prepare-ocr.mjs";
+prepareOCR();
 const root=fileURLToPath(new URL("../",import.meta.url));
 const next=path.join(root,".local-build"),current=path.join(root,"dist-local"),previous=path.join(root,".local-previous");
 for(const target of [next,current,previous])if(path.dirname(path.resolve(target))!==path.resolve(root))throw new Error("Build path escaped the checkout.");
