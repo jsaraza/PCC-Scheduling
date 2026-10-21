@@ -55,3 +55,5 @@
 @keyframes tour-copy-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:760px){.top-actions .tour-launch{margin-left:auto;font-size:11px;padding:8px 10px}.tour-card{padding:18px;border-radius:16px}.tour-copy h2{font-size:20px}.tour-copy p{font-size:14px}.tour-topline>span{font-size:9px}.tour-actions{margin-top:18px}}
 @media(prefers-reduced-motion:reduce){.tour-copy{animation:none}.tour-card,.tour-progress>span{transition:none}}
+
+.import-preview{max-height:280px;margin:16px 0;border:1px solid var(--border);border-radius:12px}.import-preview table{width:100%;font-size:13px}.import-preview th,.import-preview td{padding:10px;text-align:left}.import-preview small{display:block}.roster-import details{margin:16px 0}.roster-import summary{cursor:pointer;font-weight:600}

@@ -71,3 +71,9 @@ Run `node --test tests/planner.test.mjs tests/teams.test.mjs` for legacy and tea
 - Extended workspaces carry `toolsVersion: 1`; older clients must reload before saving to avoid losing new fields. Existing v2 data gets empty rule, handover and audit lists on load.
 
 Additional regression tests: `node --test tests/planner.test.mjs tests/teams.test.mjs tests/planning-tools.test.mjs`.
+
+## Excel files
+
+Nurse roster → Import Excel / CSV accepts `.xlsx` (5 MB, maximum 20 MB expanded ZIP) or CSV (200 KB), up to 100 nurses. Download the Excel template, keep the required header row, select a visible worksheet and review the validated preview before replacing the day. Excel time cells and AM/PM times are normalized; formulas are rejected. Names retain existing IDs. Roster imports do not import historical assignments.
+
+Export Excel downloads four sheets: Schedule, Roster, Events, and Review & layout. It includes draft/approved status, breaks, transfers, handovers, notes and configured checks. The Roster sheet can be reimported. Keep JSON backups for full recovery. Workbook processing happens in the browser and works offline in the local edition. ExcelJS is MIT licensed (https://github.com/exceljs/exceljs).

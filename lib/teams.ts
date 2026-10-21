@@ -264,10 +264,12 @@ export function closeJP2(d:Day,at:string):Day{
 }
 export function importStaff(csv:string,existing:Staff[]):Staff[]{
  const [header,...rows]=parseCSV(csv.replace(/^\uFEFF/,""));if(!header)throw new Error("CSV is empty.");
- const cols=header.map(s=>s.toLowerCase());for(const name of ["name","role","floor","cohort","start","end"])if(!cols.includes(name))throw new Error("Required columns: name,role,floor,cohort,start,end.");
+ const cols=header.map(s=>s.trim().toLowerCase());for(const name of ["name","role","floor","cohort","start","end"])if(!cols.includes(name))throw new Error("Required columns: name,role,floor,cohort,start,end.");
+ if(new Set(cols.filter(Boolean)).size!==cols.filter(Boolean).length)throw new Error("Remove duplicate column headings.");
  if(rows.length>100)throw new Error("Maximum 100 nurses.");const names=new Set<string>();
  return rows.map((r,i)=>{
-  const get=(k:string)=>r[cols.indexOf(k)]||"",name=get("name"),previous=existing.find(n=>n.name.toLowerCase()===name.toLowerCase());
+  const get=(k:string)=>(r[cols.indexOf(k)]||"").trim(),name=get("name"),previous=existing.find(n=>n.name.toLowerCase()===name.toLowerCase());
+  if(cols.includes("weekdaysonly")&&!["","true","false"].includes(get("weekdaysonly").toLowerCase()))throw new Error("Row "+(i+2)+": weekdaysOnly must be true or false.");
   if(names.has(name.toLowerCase()))throw new Error("Duplicate nurse name on row "+(i+2));names.add(name.toLowerCase());
   const n=staffSchema.parse({id:previous?.id||uid(),name,role:get("role").toUpperCase(),floor:get("floor").toUpperCase(),cohort:get("cohort").toLowerCase(),start:get("start"),end:get("end"),leadership:cols.includes("leadership")?get("leadership"):previous?.leadership||"",weekdaysOnly:cols.includes("weekdaysonly")?get("weekdaysonly").toLowerCase()==="true":previous?.weekdaysOnly||false,shortEnd:cols.includes("shortend")?get("shortend")||null:previous?.shortEnd||null,confirmed:true});
   if(minute(n.start)>=minute(n.end))throw new Error("Row "+(i+2)+": invalid shift interval.");
