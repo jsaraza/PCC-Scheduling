@@ -2,7 +2,11 @@
 
 The local edition runs the planner in a browser, with a small server and SQLite database on the same computer. Normal use needs no internet, ChatGPT account, Cloudflare account, AI subscription, or hosting subscription. Setup and updates need internet to download software. Use a current Edge or Chrome browser.
 
-## First installation
+## Portable download (no installation required)
+
+For the simplest client handoff, download **PCC-Scheduler-Portable-Windows-x64.zip** from [GitHub Releases](https://github.com/jsaraza/PCC-Scheduling/releases), extract it, and double-click **Open PCC Scheduler.cmd**. This includes Node and the built app, so no separate Node installation or setup is needed. See **PORTABLE-README.md**. The instructions below apply to the source-code ZIP.
+
+## First installation from source
 
 1. Install Node.js **24 LTS** from https://nodejs.org if it is not already installed. On a managed workplace computer, have IT install the approved runtime and application.
 2. Download the repository ZIP from GitHub and extract it into a permanent folder. Do not run files from inside the ZIP. A Git clone also works.

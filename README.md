@@ -77,3 +77,7 @@ Additional regression tests: `node --test tests/planner.test.mjs tests/teams.tes
 Nurse roster → Import Excel / CSV accepts `.xlsx` (5 MB, maximum 20 MB expanded ZIP) or CSV (200 KB), up to 100 nurses. Download the Excel template, keep the required header row, select a visible worksheet and review the validated preview before replacing the day. Excel time cells and AM/PM times are normalized; formulas are rejected. Names retain existing IDs. Roster imports do not import historical assignments.
 
 Export Excel downloads four sheets: Schedule, Roster, Events, and Review & layout. It includes draft/approved status, breaks, transfers, handovers, notes and configured checks. The Roster sheet can be reimported. Keep JSON backups for full recovery. Workbook processing happens in the browser and works offline in the local edition. ExcelJS is MIT licensed (https://github.com/exceljs/exceljs).
+
+## Portable client download
+
+Use the **Portable Windows x64 ZIP** under [GitHub Releases](https://github.com/jsaraza/PCC-Scheduling/releases) to run without installing Node.js or using setup commands. Extract it, then double-click **Open PCC Scheduler.cmd**. The source archive from Code → Download ZIP still needs developer setup. See PORTABLE-README.md for local data, backups and updates.
