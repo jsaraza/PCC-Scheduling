@@ -32,6 +32,8 @@ try {
   $shortcut=$shell.CreateShortcut((Join-Path ([Environment]::GetFolderPath("Desktop")) "PCC Scheduling.lnk"))
   $shortcut.TargetPath=Join-Path $projectPath "Start PCC Scheduling.cmd"
   $shortcut.WorkingDirectory=$projectPath
+  $shortcut.IconLocation=(Join-Path $projectPath "public\pcc-icon.ico")+",0"
+  $shortcut.Description="Patient Care Coordinator Scheduler"
   $shortcut.Save()
   Write-Host "Ready. Open PCC Scheduling from your Desktop. Setup requires internet; normal use does not."
  } else {

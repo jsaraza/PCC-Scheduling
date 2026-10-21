@@ -20,6 +20,8 @@ The website and repository are private. The website currently allows only its ow
 - Local edition: automatic saves, browser draft recovery, separate SQLite schedule records, automatic backups, restore preview, stale-write protection, and Windows setup/start/stop/update launchers.
 - A command-based helper. No LLM, AI API fee or automatic clinical decision-making is involved.
 
+The app uses a matching green calendar icon in the sidebar, browser tab and Windows shortcut. On an existing local installation, run Setup again after extracting this release to refresh the Desktop shortcut icon. Saved data stays in LocalAppData.
+
 ## On-screen tutorial
 
 Select **Take a tour** at the top right for a repeatable 23-step walkthrough. Use Next and Back, or the arrow keys. Exit with the close button or Escape. The guide highlights controls, changes views for you, and returns you to your starting view without editing assignments. Save guidance matches the local or online edition.

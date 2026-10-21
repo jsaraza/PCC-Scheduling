@@ -92,14 +92,14 @@ export default function Planner({user,signIn,signOut}:{user:string|null;signIn:s
   }
   setChat(c=>[...c,{who:"helper",text:reply}]);if(next)setProposal({schedule:next,reason:reply});setChatBusy(false);
  }
- if(loading)return <div className="loading"><div className="brand-symbol">P</div><h2>Opening your planner</h2><p>Preparing your daily workspace</p></div>;
+ if(loading)return <div className="loading"><img className="brand-symbol" src="/pcc-icon.svg" alt="" width={40} height={40}/><h2>Opening your planner</h2><p>Preparing your daily workspace</p></div>;
  if(loadFailed||!data||!current)return <div className="loading"><AlertCircle size={32}/><h2>Your saved workspace couldnt be loaded</h2><p>{saveError}</p><button className="primary" onClick={()=>location.reload()}>Try again</button><p>Your saved data has not been replaced.</p></div>;
  const areas=[...new Set(current.bays.map(b=>b.area))],visibleBays=current.bays.filter(b=>(filter==="All areas"||b.area===filter)&&(!query||[b.label,b.service,b.or,...current.assignments.filter(a=>a.bayId===b.id).map(a=>current.roster.find(n=>n.id===a.nurseId)?.name||"")].join(" ").toLowerCase().includes(query.toLowerCase())));
  const assigned=new Set(current.assignments.map(a=>a.nurseId)).size;
  const coverage=current.bays.filter(b=>!errors.some(i=>i.text.startsWith(b.label+": uncovered"))).length;
  return <div className="app-shell">
   <aside className={"sidebar no-print "+(menu?"mobile-open":"")}>
-   <a className="brand" href="/" aria-label="PCC Scheduler home"><span className="brand-symbol">P<span></span></span><span>PCC Scheduler<small>PRE-OP PLANNER</small></span></a>
+   <a className="brand" href="/" aria-label="PCC Scheduler home"><img className="brand-symbol" src="/pcc-icon.svg" alt="" width={40} height={40}/><span>PCC Scheduler<small>PRE-OP PLANNER</small></span></a>
    <div className="workspace-label"><span className="live-dot"/>Perioperative care<span className="pill tiny">PILOT</span></div>
    <div className="nav-label">WORKSPACE</div>
    <nav>{(Object.keys(labels) as Tab[]).map(t=>{const Icon=icons[t];return <button className={tab===t?"nav-item selected":"nav-item"} key={t} onClick={()=>{setTab(t);setMenu(false);setQuery("");}}><Icon size={19}/>{labels[t]}{t==="schedule"&&<span className="nav-dot"/>}</button>;})}</nav>
